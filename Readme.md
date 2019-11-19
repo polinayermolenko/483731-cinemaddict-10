@@ -1,7 +1,7 @@
 # Личный проект «Киноман» [![Build status][travis-image]][travis-url]
 
 * Студент: [Polina Yermolenko](https://up.htmlacademy.ru/ecmascript/10/user/483731).
-* Наставник: `Неизвестно`.
+* Наставник: [Михаил Еланцев](https://htmlacademy.ru/profile/id928641).
 
 ---
 
