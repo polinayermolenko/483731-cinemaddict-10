@@ -1,6 +1,9 @@
 export const createFilmTemplate = (film) => {
-  const {title, rating, year, duration, genre, poster, description, commentsNumber,
+  const {title, rating, releaseDate, duration, genres, poster, description, comments,
     isAddToWatchlistPressed, isMarkAsWatchedPressed, isMarkAsFavoritePressed} = film;
+  const year = releaseDate.slice(releaseDate.length - 4, releaseDate.length);
+  const genre = genres[0];
+  const commentsNumber = `${comments.length === 1 ? `${comments.length} comment` : `${comments.length} comments`}`;
   const buttonAddToWatchlist = isAddToWatchlistPressed ? `film-card__controls-item--active` : ``;
   const buttonMarkAsWatched = isMarkAsWatchedPressed ? `film-card__controls-item--active` : ``;
   const buttonMarkAsFavorite = isMarkAsFavoritePressed ? `film-card__controls-item--active` : ``;

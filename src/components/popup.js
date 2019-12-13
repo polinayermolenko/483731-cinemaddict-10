@@ -1,5 +1,3 @@
-import {generateComments} from '../mock/popupmock.js';
-
 const generateGenresMarkup = (genre) => {
   return (
     `<span class="film-details__genre">${genre}</span>`
@@ -26,21 +24,16 @@ const generateCommentsMarkup = (comment) => {
   );
 };
 
-export const createPopupTemplate = (popup) => {
-  const {title, original, poster, age, totalRating, userRating,
-    director, writers, actors, releaseDate, runTime, country, genres,
-    description, isAddToWatchlistPressed, isMarkAsWatchedPressed, isMarkAsFavoritePressed} = popup;
+export const createPopupTemplate = (film) => {
+  const {title, original, poster, age, rating, userRating, comments,
+    director, writers, actors, releaseDate, duration, country, genres,
+    description, isAddToWatchlistPressed, isMarkAsWatchedPressed, isMarkAsFavoritePressed} = film;
 
   const genresMarkup = genres.map((genre) => {
     return generateGenresMarkup(genre);
   }).join(`\n`);
 
-  const comments = generateComments();
-  const count = comments.map((comment) => {
-    return comment.count;
-  }).reduce((acc, current) => {
-    return acc + current;
-  });
+  const commentsNumber = comments.length;
 
   const commentsMarkup = comments.map((comment) => {
     return generateCommentsMarkup(comment);
@@ -68,7 +61,7 @@ export const createPopupTemplate = (popup) => {
               </div>
 
               <div class="film-details__rating">
-                <p class="film-details__total-rating">${totalRating}</p>
+                <p class="film-details__total-rating">${rating}</p>
                 <p class="film-details__user-rating">Your rate ${userRating}</p>
               </div>
             </div>
@@ -92,7 +85,7 @@ export const createPopupTemplate = (popup) => {
               </tr>
               <tr class="film-details__row">
                 <td class="film-details__term">Runtime</td>
-                <td class="film-details__cell">${runTime}</td>
+                <td class="film-details__cell">${duration}</td>
               </tr>
               <tr class="film-details__row">
                 <td class="film-details__term">Country</td>
@@ -126,7 +119,7 @@ export const createPopupTemplate = (popup) => {
 
       <div class="form-details__bottom-container">
         <section class="film-details__comments-wrap">
-          <h3 class="film-details__comments-title">Comments <span class="film-details__comments-count">${count}</span></h3>
+          <h3 class="film-details__comments-title">Comments <span class="film-details__comments-count">${commentsNumber}</span></h3>
 
           <ul class="film-details__comments-list">
             ${commentsMarkup}

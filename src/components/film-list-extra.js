@@ -4,11 +4,10 @@ const EXTRA_TITLES = [`Top Rated`, `Most Commented`];
 
 const getMostCommentedFilms = (films) => {
   return films.slice().sort((film1, film2) => {
-    return film2.commentsNumber - film1.commentsNumber;
+    return film2.comments.length - film1.comments.length;
   })
 .slice(0, 2);
 };
-
 
 const getMostRatedFilms = (films) => {
   return films.slice()

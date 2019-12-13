@@ -1,5 +1,3 @@
-import {generateFilms} from './filmmock.js';
-
 const FILTER_NAMES = [`Watchlist`, `History`, `Favorites`];
 
 const filterMap = {
@@ -8,19 +6,17 @@ const filterMap = {
   'Favorites': `isMarkAsFavoritePressed`
 };
 
-export const generateFilters = () => {
+export const generateFilters = (films) => {
   return FILTER_NAMES.map((it) => {
     return {
       name: it,
-      count: countValues(generateFilms(20), it)
+      count: countValues(films, it)
     };
   });
 };
 
 const countValues = (films, filter) => {
-  return films.map((film) => {
-    return film[filterMap[filter]];
-  }).reduce((acc, cur) => {
-    return acc + Number(cur);
-  });
+  return films.reduce((acc, film) => {
+    return acc + Number(film[filterMap[filter]]);
+  }, 0);
 };

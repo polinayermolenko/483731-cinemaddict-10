@@ -1,9 +1,9 @@
-import {getRandomInteger} from '../mock/filmmock.js';
-export const createUserRank = () => {
-  const watchedMoviesTotal = getRandomInteger(0, 30);
-
+export const createUserRank = (films) => {
   let userProfile = ``;
-
+  let watchedMoviesTotal = films.filter((film) => {
+    return film.isMarkAsWatchedPressed;
+  });
+  watchedMoviesTotal = watchedMoviesTotal.length;
   switch (true) {
     case watchedMoviesTotal <= 10 && watchedMoviesTotal > 0 :
       userProfile = `Novice`;

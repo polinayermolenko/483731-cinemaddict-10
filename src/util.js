@@ -25,16 +25,6 @@ export const generateRandomElements = (min, max, array) => {
   });
 };
 
-export const generateYear = () => {
-  return `${1900 + getRandomInteger(0, 120)}`;
-};
-
-export const generateCommentsNumber = () => {
-  let string = getRandomInteger(0, 465);
-  return string === 1 ? `${string} comment` : `${string} comments`;
-
-};
-
 export const generateDuration = () => {
   let totalDuration = getRandomInteger(10, 171);
   const minutes = totalDuration % 60;
