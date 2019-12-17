@@ -1,4 +1,6 @@
-export const createUserRank = (films) => {
+import {createElement} from '../util.js';
+
+const createUserRank = (films) => {
   let userProfile = ``;
   let watchedMoviesTotal = films.filter((film) => {
     return film.isMarkAsWatchedPressed;
@@ -28,3 +30,26 @@ export const createUserRank = (films) => {
   </section>`
   );
 };
+
+export default class UserRank {
+  constructor(films) {
+    this._films = films;
+    this._element = null;
+  }
+
+  getTemplate() {
+    return createUserRank(this._films);
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}

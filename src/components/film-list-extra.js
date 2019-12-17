@@ -1,4 +1,5 @@
 import {createFilmTemplate} from './film.js';
+import {createElement} from '../util.js';
 
 const EXTRA_TITLES = [`Top Rated`, `Most Commented`];
 
@@ -58,4 +59,25 @@ const createFilmListExtraTemplate = (films) => {
   }).join(`\n`);
 };
 
-export {createFilmListExtraTemplate};
+export default class FilmsListExtra {
+  constructor(films) {
+    this._films = films;
+    this._element = null;
+  }
+
+  getTemplate() {
+    return createFilmListExtraTemplate(this._films);
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}
