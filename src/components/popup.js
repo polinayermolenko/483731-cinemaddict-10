@@ -175,7 +175,7 @@ export default class Popup {
   }
 
   getElement() {
-    if(!this._element) {
+    if (!this._element) {
       this._element = createElement(this.getTemplate());
     }
 
