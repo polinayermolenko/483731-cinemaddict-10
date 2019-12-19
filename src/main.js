@@ -37,17 +37,18 @@ const showMoreButtonComponent = new ShowMoreButtonComponent();
 const showMoreButtonContainer = filmListComponent.getElement().querySelector(`.films-list`);
 render(showMoreButtonContainer, showMoreButtonComponent.getElement(), RenderPosition.BEFOREEND);
 
-/*showMoreButton.addEventListener(`click`, () => {
+showMoreButtonComponent.getElement().addEventListener(`click`, () => {
   let prevFilmsCount = showingFilmsCount;
   showingFilmsCount = showingFilmsCount + SHOWING_FILMS_COUNT_BY_BUTTON;
   films.slice(prevFilmsCount, showingFilmsCount).forEach((film) => {
-    render(filmListContainer, createFilmTemplate(film));
+    render(filmListContainer, new FilmComponent(film).getElement(), RenderPosition.BEFOREEND);
   });
 
   if (showingFilmsCount >= films.length) {
-    showMoreButton.remove();
+    showMoreButtonComponent.getElement().remove();
+    showMoreButtonComponent.removeElement();
   }
-});*/
+});
 
 render(filmListComponent.getElement(), new FilmListExtraComponent(films).getElement(), RenderPosition.BEFOREEND);
 
