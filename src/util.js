@@ -64,12 +64,26 @@ export const RenderPosition = {
 export const render = (container, element, place) => {
   switch (place) {
     case RenderPosition.BEFOREEND:
-    container.append(element);
-    break;
+      container.append(element);
+      break;
 
     case RenderPosition.AFTERBEGIN:
-    container.prepend(element);
-    break;
+      container.prepend(element);
+      break;
   }
 };
 
+export const getMostCommentedFilms = (films) => {
+  return films.slice().sort((film1, film2) => {
+    return film2.comments.length - film1.comments.length;
+  })
+.slice(0, 2);
+};
+
+export const getMostRatedFilms = (films) => {
+  return films.slice()
+ .sort((film1, film2) => {
+   return film2.rating - film1.rating;
+ })
+.slice(0, 2);
+};

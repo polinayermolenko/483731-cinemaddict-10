@@ -7,7 +7,8 @@ import SiteMenuComponent from './components/site-menu.js';
 import UserRankComponent from './components/user-rank.js';
 import {generateFilms} from './mock/filmmock.js';
 import {generateFilters} from './mock/filter.js';
-import {render, RenderPosition} from './util.js';
+import {render, RenderPosition, getMostCommentedFilms, getMostRatedFilms} from './util.js';
+
 
 const FILM_CARD_COUNT = 23;
 const SHOWING_FILMS_COUNT_ON_START = 5;
@@ -50,13 +51,25 @@ showMoreButtonComponent.getElement().addEventListener(`click`, () => {
   }
 });
 
-render(filmListComponent.getElement(), new FilmListExtraComponent(films).getElement(), RenderPosition.BEFOREEND);
+const mostRatedFilms = getMostRatedFilms(films);
+const mostCommentedFilms = getMostCommentedFilms(films);
 
-/*const siteBodyElement = document.querySelector(`body`);
+const EXTRA_TITLES = [`Top Rated`, `Most Commented`];
+
+const TopFilmsMap = {
+  'Top Rated': mostRatedFilms,
+  'Most Commented': mostCommentedFilms
+};
+
+EXTRA_TITLES.forEach((title) => {
+  render(filmListComponent.getElement(), new FilmListExtraComponent(title, TopFilmsMap[title]).getElement(), RenderPosition.BEFOREEND);
+});
+
+const siteBodyElement = document.querySelector(`body`);
 
 const footerStatistic = document.querySelector(`.footer__statistics p`);
 footerStatistic.textContent = `${films.length} movies inside`;
 
-render(siteBodyElement, createPopupTemplate(films[0]));*/
+/*render(siteBodyElement, createPopupTemplate(films[0]));*/
 
 export {generateFilms};
