@@ -1,3 +1,5 @@
+import {createElement} from '../util.js';
+
 const generateGenresMarkup = (genre) => {
   return (
     `<span class="film-details__genre">${genre}</span>`
@@ -24,7 +26,7 @@ const generateCommentsMarkup = (comment) => {
   );
 };
 
-export const createPopupTemplate = (film) => {
+const createPopupTemplate = (film) => {
   const {title, original, poster, age, rating, userRating, comments,
     director, writers, actors, releaseDate, duration, country, genres,
     description, isAddToWatchlistPressed, isMarkAsWatchedPressed, isMarkAsFavoritePressed} = film;
@@ -160,3 +162,27 @@ export const createPopupTemplate = (film) => {
   </section>`
   );
 };
+
+
+export default class Popup {
+  constructor(film) {
+    this._film = film;
+    this._element = null;
+  }
+
+  getTemplate() {
+    return createPopupTemplate(this._film);
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}
