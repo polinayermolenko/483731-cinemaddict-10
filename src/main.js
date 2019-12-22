@@ -5,6 +5,7 @@ import PopupComponent from './components/popup.js';
 import ShowMoreButtonComponent from './components/show-more-button.js';
 import SiteMenuComponent from './components/site-menu.js';
 import UserRankComponent from './components/user-rank.js';
+import SortComponent from './components/sort.js';
 import {generateFilms} from './mock/filmmock.js';
 import {generateFilters} from './mock/filter.js';
 import {render, RenderPosition, getMostCommentedFilms, getMostRatedFilms} from './util.js';
@@ -62,6 +63,8 @@ render(siteHeaderElement, new UserRankComponent(films).getElement(), RenderPosit
 
 const filters = generateFilters(films);
 render(siteMainElement, new SiteMenuComponent(filters).getElement(), RenderPosition.BEFOREEND);
+
+render(siteMainElement, new SortComponent().getElement(), RenderPosition.BEFOREEND);
 
 const filmListComponent = new FilmListComponent();
 
