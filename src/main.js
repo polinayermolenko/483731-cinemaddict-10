@@ -18,22 +18,34 @@ const renderFilm = (film, container) => {
   const comments = filmComponent.getElement().querySelector(`.film-card__comments`);
   const closeButton = popupComponent.getElement().querySelector(`.film-details__close-btn`);
 
-  poster.addEventListener(`click`, () => {
-    render(siteBodyElement, popupComponent.getElement(), RenderPosition.BEFOREEND);
-  });
-
-  title.addEventListener(`click`, () => {
-    render(siteBodyElement, popupComponent.getElement(), RenderPosition.BEFOREEND);
-  });
-
-  comments.addEventListener(`click`, () => {
-    render(siteBodyElement, popupComponent.getElement(), RenderPosition.BEFOREEND);
-  });
-
-  closeButton.addEventListener(`click`, () => {
+  const hidePopup = () => {
     popupComponent.getElement().remove();
-    popupComponent.removeElement();
-  });
+  };
+
+  const onCloseButtonClick = () => {
+    hidePopup();
+  };
+
+  const onEscKeyDown = (evt) => {
+    const isEscKey = evt.key === `Escape` || evt.key === `Esc`;
+    if (isEscKey) {
+      hidePopup();
+      document.removeEventListener(`keydown`, onEscKeyDown);
+    }
+  };
+
+  const onFilmClick = () => {
+    render(siteBodyElement, popupComponent.getElement(), RenderPosition.BEFOREEND);
+    document.addEventListener(`keydown`, onEscKeyDown);
+  };
+
+  poster.addEventListener(`click`, onFilmClick);
+
+  title.addEventListener(`click`, onFilmClick);
+
+  comments.addEventListener(`click`, onFilmClick);
+
+  closeButton.addEventListener(`click`, onCloseButtonClick);
 
   render(container, filmComponent.getElement(), RenderPosition.BEFOREEND);
 };
