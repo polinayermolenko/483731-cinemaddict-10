@@ -6,6 +6,9 @@ import ShowMoreButtonComponent from './components/show-more-button.js';
 import SiteMenuComponent from './components/site-menu.js';
 import UserRankComponent from './components/user-rank.js';
 import SortComponent from './components/sort.js';
+import FilmsComponent from './components/films.js';
+import NoFilmsComponent from './components/no-films.js';
+import FilmsContainerComponent from './components/films-container.js';
 import {generateFilms} from './mock/filmmock.js';
 import {generateFilters} from './mock/filter.js';
 import {render, RenderPosition, getMostCommentedFilms, getMostRatedFilms} from './util.js';
@@ -67,51 +70,60 @@ render(siteMainElement, new SiteMenuComponent(filters).getElement(), RenderPosit
 render(siteMainElement, new SortComponent().getElement(), RenderPosition.BEFOREEND);
 
 const filmListComponent = new FilmListComponent();
+const filmsList = filmListComponent.getElement().querySelector(`.films-list`);
 
 render(siteMainElement, filmListComponent.getElement(), RenderPosition.BEFOREEND);
-const filmListContainer = filmListComponent.getElement().querySelector(`.films-list__container`);
 
 let showingFilmsCount = SHOWING_FILMS_COUNT_ON_START;
 
-films.slice(0, showingFilmsCount).forEach((film) => {
-  renderFilm(film, filmListContainer);
-});
+if (!films.length) {
+  render(filmsList, new NoFilmsComponent().getElement(), RenderPosition.BEFOREEND);
+} else {
+  const filmsContainerComponent = new FilmsContainerComponent();
+  render(filmsList, new FilmsComponent().getElement(), RenderPosition.BEFOREEND);
+  render(filmsList, filmsContainerComponent.getElement(), RenderPosition.BEFOREEND);
 
-const showMoreButtonComponent = new ShowMoreButtonComponent();
-const showMoreButtonContainer = filmListComponent.getElement().querySelector(`.films-list`);
-render(showMoreButtonContainer, showMoreButtonComponent.getElement(), RenderPosition.BEFOREEND);
+  const filmListContainer = filmListComponent.getElement().querySelector(`.films-list__container`);
 
-showMoreButtonComponent.getElement().addEventListener(`click`, () => {
-  let prevFilmsCount = showingFilmsCount;
-  showingFilmsCount = showingFilmsCount + SHOWING_FILMS_COUNT_BY_BUTTON;
-  films.slice(prevFilmsCount, showingFilmsCount).forEach((film) => {
+  films.slice(0, showingFilmsCount).forEach((film) => {
     renderFilm(film, filmListContainer);
   });
 
-  if (showingFilmsCount >= films.length) {
-    showMoreButtonComponent.getElement().remove();
-    showMoreButtonComponent.removeElement();
-  }
-});
+  const showMoreButtonComponent = new ShowMoreButtonComponent();
+  render(filmsList, showMoreButtonComponent.getElement(), RenderPosition.BEFOREEND);
 
-const mostRatedFilms = getMostRatedFilms(films);
-const mostCommentedFilms = getMostCommentedFilms(films);
+  showMoreButtonComponent.getElement().addEventListener(`click`, () => {
+    let prevFilmsCount = showingFilmsCount;
+    showingFilmsCount = showingFilmsCount + SHOWING_FILMS_COUNT_BY_BUTTON;
+    films.slice(prevFilmsCount, showingFilmsCount).forEach((film) => {
+      renderFilm(film, filmListContainer);
+    });
 
-const EXTRA_TITLES = [`Top Rated`, `Most Commented`];
-
-const TopFilmsMap = {
-  'Top Rated': mostRatedFilms,
-  'Most Commented': mostCommentedFilms
-};
-
-EXTRA_TITLES.forEach((title) => {
-  const filmListExtraComponent = new FilmListExtraComponent(title);
-  render(filmListComponent.getElement(), filmListExtraComponent.getElement(), RenderPosition.BEFOREEND);
-  const filmListExtraContainer = filmListExtraComponent.getElement().querySelector(`.films-list__container`);
-  TopFilmsMap[title].forEach((film) => {
-    renderFilm(film, filmListExtraContainer);
+    if (showingFilmsCount >= films.length) {
+      showMoreButtonComponent.getElement().remove();
+      showMoreButtonComponent.removeElement();
+    }
   });
-});
+
+  const mostRatedFilms = getMostRatedFilms(films);
+  const mostCommentedFilms = getMostCommentedFilms(films);
+
+  const EXTRA_TITLES = [`Top Rated`, `Most Commented`];
+
+  const TopFilmsMap = {
+    'Top Rated': mostRatedFilms,
+    'Most Commented': mostCommentedFilms
+  };
+
+  EXTRA_TITLES.forEach((title) => {
+    const filmListExtraComponent = new FilmListExtraComponent(title);
+    render(filmListComponent.getElement(), filmListExtraComponent.getElement(), RenderPosition.BEFOREEND);
+    const filmListExtraContainer = filmListExtraComponent.getElement().querySelector(`.films-list__container`);
+    TopFilmsMap[title].forEach((film) => {
+      renderFilm(film, filmListExtraContainer);
+    });
+  });
+}
 
 const footerStatistic = document.querySelector(`.footer__statistics p`);
 footerStatistic.textContent = `${films.length} movies inside`;

@@ -1,10 +1,8 @@
 import {createElement} from '../util.js';
 
-const createFilmListTemplate = () => {
+const createFilmsContainerTemplate = () => {
   return (
-    `<section class="films">
-       <section class="films-list"></section>
-     </section>`
+    `<div class="films-list__container"></div>`
   );
 };
 
@@ -14,7 +12,7 @@ export default class FilmList {
   }
 
   getTemplate() {
-    return createFilmListTemplate();
+    return createFilmsContainerTemplate();
   }
 
   getElement() {
