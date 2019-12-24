@@ -11,7 +11,8 @@ import NoFilmsComponent from './components/no-films.js';
 import FilmsContainerComponent from './components/films-container.js';
 import {generateFilms} from './mock/filmmock.js';
 import {generateFilters} from './mock/filter.js';
-import {render, RenderPosition, getMostCommentedFilms, getMostRatedFilms} from './util.js';
+import {render, RenderPosition, remove} from './utils/render.js';
+import {getMostCommentedFilms, getMostRatedFilms} from './utils/common.js';
 
 const renderFilm = (film, container) => {
   const popupComponent = new PopupComponent(film);
@@ -100,8 +101,7 @@ if (!films.length) {
     });
 
     if (showingFilmsCount >= films.length) {
-      showMoreButtonComponent.getElement().remove();
-      showMoreButtonComponent.removeElement();
+      remove(showMoreButtonComponent);
     }
   });
 

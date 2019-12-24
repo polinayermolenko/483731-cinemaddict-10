@@ -1,4 +1,4 @@
-import {MONTHS} from './const.js';
+import {MONTHS} from '../const.js';
 
 export const getRandomInteger = (min, max) => {
   return min + Math.floor(Math.random() * max);
@@ -48,29 +48,6 @@ export const getRandomDate = () => {
   const month = MONTHS[targetDate.getMonth()];
   const year = targetDate.getFullYear();
   return `${day} ${month} ${year}`;
-};
-
-export const createElement = (template) => {
-  const newElement = document.createElement(`div`);
-  newElement.innerHTML = template;
-  return newElement.firstChild;
-};
-
-export const RenderPosition = {
-  BEFOREEND: `beforeend`,
-  AFTERBEGIN: `afterbegin`
-};
-
-export const render = (container, element, place) => {
-  switch (place) {
-    case RenderPosition.BEFOREEND:
-      container.append(element);
-      break;
-
-    case RenderPosition.AFTERBEGIN:
-      container.prepend(element);
-      break;
-  }
 };
 
 export const getMostCommentedFilms = (films) => {
