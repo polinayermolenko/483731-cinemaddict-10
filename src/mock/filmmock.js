@@ -1,5 +1,5 @@
 import {FILM_TITLES, POSTERS, PEOPLE, GENRES, AGE, COUNTRY, EMOJI, DESCRIPTIONS} from '../const.js';
-import {getRandomInteger, getRandomElement, generateFloatingPointNumber, generateRandomElements, generateDuration, getRandomDate} from '../util.js';
+import {getRandomInteger, getRandomElement, generateFloatingPointNumber, generateRandomElements, generateDuration, getRandomDate} from '../utils/common.js';
 
 const generateComment = () => {
   return {
