@@ -19,13 +19,14 @@ render(siteHeaderElement, new UserRankComponent(films), RenderPosition.BEFOREEND
 const filters = generateFilters(films);
 render(siteMainElement, new SiteMenuComponent(filters), RenderPosition.BEFOREEND);
 
-render(siteMainElement, new SortComponent(), RenderPosition.BEFOREEND);
+const sortComponent = new SortComponent();
+render(siteMainElement, sortComponent, RenderPosition.BEFOREEND);
 
 const filmListComponent = new FilmListComponent();
 
 render(siteMainElement, filmListComponent, RenderPosition.BEFOREEND);
 
-const pageController = new PageController(filmListComponent);
+const pageController = new PageController(filmListComponent, sortComponent);
 
 pageController.render(films);
 
