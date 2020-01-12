@@ -64,8 +64,6 @@ export default class MovieController {
       this._onDataChange(this, film, Object.assign({}, film, {
         isMarkAsWatchedPressed: !film.isMarkAsWatchedPressed
       }));
-      const ratingContainer = this._popupComponent.getElement().querySelector(`.form-details__top-container`);
-      render(ratingContainer, this._ratingComponent, RenderPosition.AFTEREND);
     });
 
     this._popupComponent.setFavoritePopupClickHandler(() => {
@@ -76,12 +74,16 @@ export default class MovieController {
 
     this._popupComponent.setCloseButtonClickHandler(() => this._hidePopup());
 
-
     if (oldPopupComponent && oldFilmComponent) {
       replace(this._popupComponent, oldPopupComponent);
       replace(this._filmComponent, oldFilmComponent);
     } else {
       render(this._container, this._filmComponent, RenderPosition.BEFOREEND);
+    }
+
+    if (film.isMarkAsWatchedPressed) {
+      const ratingContainer = this._popupComponent.getElement().querySelector(`.form-details__top-container`);
+      render(ratingContainer, this._ratingComponent, RenderPosition.AFTEREND);
     }
   }
 
