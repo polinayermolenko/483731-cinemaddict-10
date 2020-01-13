@@ -1,4 +1,4 @@
-import AbstractComponent from './abstract-component.js';
+import AbstractSmartComponent from './abstract-smart-component.js';
 
 const generateGenresMarkup = (genre) => {
   return (
@@ -164,7 +164,7 @@ const createPopupTemplate = (film) => {
 };
 
 
-export default class Popup extends AbstractComponent {
+export default class Popup extends AbstractSmartComponent {
   constructor(film) {
     super();
 
@@ -177,6 +177,21 @@ export default class Popup extends AbstractComponent {
 
   setCloseButtonClickHandler(handler) {
     this.getElement().querySelector(`.film-details__close-btn`)
+    .addEventListener(`click`, handler);
+  }
+
+  setWatchlistPopupClickHandler(handler) {
+    this.getElement().querySelector(`.film-details__control-label--watchlist`)
+    .addEventListener(`click`, handler);
+  }
+
+  setWatchedPopupClickHandler(handler) {
+    this.getElement().querySelector(`.film-details__control-label--watched`)
+    .addEventListener(`click`, handler);
+  }
+
+  setFavoritePopupClickHandler(handler) {
+    this.getElement().querySelector(`.film-details__control-label--favorite`)
     .addEventListener(`click`, handler);
   }
 }
