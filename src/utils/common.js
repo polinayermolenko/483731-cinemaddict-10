@@ -1,4 +1,13 @@
 import {MONTHS} from '../const.js';
+import moment from 'moment';
+
+export const formatDate = (date) => {
+  return moment(date).format(`DD MMMM YYYY`);
+};
+
+export const formatTime = (time) => {
+  return moment(time).format(`YYYY/MM/DD HH:MM`);
+};
 
 export const getRandomInteger = (min, max) => {
   return min + Math.floor(Math.random() * max);

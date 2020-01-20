@@ -1,4 +1,5 @@
 import AbstractSmartComponent from './abstract-smart-component.js';
+import {formatDate, formatTime} from '../utils/common.js';
 
 const generateGenresMarkup = (genre) => {
   return (
@@ -9,6 +10,7 @@ const generateGenresMarkup = (genre) => {
 
 const generateCommentsMarkup = (comment) => {
   const {emoji, text, author, day} = comment;
+  const time = formatTime(day);
   return (
     `<li class="film-details__comment">
         <span class="film-details__comment-emoji">
@@ -18,7 +20,7 @@ const generateCommentsMarkup = (comment) => {
           <p class="film-details__comment-text">${text}</p>
           <p class="film-details__comment-info">
             <span class="film-details__comment-author">${author}</span>
-            <span class="film-details__comment-day">${day}</span>
+            <span class="film-details__comment-day">${time}</span>
             <button class="film-details__comment-delete">Delete</button>
           </p>
         </div>
@@ -41,6 +43,7 @@ const createPopupTemplate = (film) => {
     return generateCommentsMarkup(comment);
   }).join(`\n`);
 
+  const date = formatDate(releaseDate);
   return (
     `<section class="film-details">
     <form class="film-details__inner" action="" method="get">
@@ -83,7 +86,7 @@ const createPopupTemplate = (film) => {
               </tr>
               <tr class="film-details__row">
                 <td class="film-details__term">Release Date</td>
-                <td class="film-details__cell">${releaseDate}</td>
+                <td class="film-details__cell">${date}</td>
               </tr>
               <tr class="film-details__row">
                 <td class="film-details__term">Runtime</td>
